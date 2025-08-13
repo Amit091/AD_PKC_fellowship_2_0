@@ -2,11 +2,13 @@ const express = require("express");
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.get("/amit", (req, res) => {
   console.log("Hello World");
   // simple text response
-  // res.send("this is a response from the server from amit server from <your_local_ip>:3000");
-  res.send('<!doctype html><html><head><title>Home</title></head><body><h1>Hello from Express</h1></body></html>');
+  res.send("this is from <your_local_ip>:3000");
+  // res.send(
+  //   '<!doctype html><html><head><title>Home</title></head><body><h1 style="color: red;">Hello from Express</h1></body></html>'
+  // );
   // res.render(`
   // <!DOCTYPE html>
   // <html>
