@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - Quick Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-result {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        .error {
+            border-left-color: #f44336;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 College API Quick Test</h1>
+    <p>This page tests if your API endpoints are accessible. Make sure your Express server is running on port 3000.</p>
+    <a href="./index.html" class="btn btn-primary" style="background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+        <i class="fas fa-eye"></i> View Main Page
+    </a>
+    <br>
+    <br>
+    <button onclick="runQuickTest()" style="background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+        Run Quick Test
+    </button>
+
+
+    
+    <div id="results"></div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3000/colleges';
+        
+        async function runQuickTest() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="test-result">🚀 Starting API tests...</div>';
+            
+            const tests = [
+                {
+                    name: 'GET All Colleges',
+                    url: `${API_BASE_URL}/`,
+                    method: 'GET'
+                },
+                {
+                    name: 'GET College by ID (1)',
+                    url: `${API_BASE_URL}/detail/1`,
+                    method: 'GET'
+                },
+                {
+                    name: 'Search College by Name (test)',
+                    url: `${API_BASE_URL}/search/test`,
+                    method: 'GET'
+                }
+            ];
+            
+            for (const test of tests) {
+                try {
+                    const response = await fetch(test.url, {
+                        method: test.method
+                    });
+                    
+                    const data = await response.json();
+                    const resultClass = response.ok ? 'test-result' : 'test-result error';
+                    
+                    resultsDiv.innerHTML += `
+                        <div class="${resultClass}">
+                            <h3>✅ ${test.name}</h3>
+                            <p><strong>Status:</strong> ${response.status} ${response.statusText}</p>
+                            <p><strong>URL:</strong> ${test.url}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } catch (error) {
+                    resultsDiv.innerHTML += `
+                        <div class="test-result error">
+                            <h3>❌ ${test.name}</h3>
+                            <p><strong>Error:</strong> ${error.message}</p>
+                            <p><strong>URL:</strong> ${test.url}</p>
+                            <p>Make sure your Express server is running on port 3000!</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            resultsDiv.innerHTML += '<div class="test-result">🎉 Testing completed!</div>';
+        }
+    </script>
+</body>
+</html>

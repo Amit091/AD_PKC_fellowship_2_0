@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College API Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-university"></i> College API Demo</h1>
+            <p>Comprehensive HTTP API testing interface for college management system</p>
+            <p>Adjust your server port on line 2 of <code>college-api-demo/script.js</code></p>
+            <a href="./test.html"  class="btn btn-primary">
+                <i class="fas fa-eye"></i> View Test Page
+            </a>
+            
+        </header>
+
+        <div class="api-section">
+            <h2><i class="fas fa-list"></i> Get All Colleges</h2>
+            <button onclick="getAllColleges()" class="btn btn-primary">
+                <i class="fas fa-download"></i> Fetch All Colleges
+            </button>
+            <div id="allCollegesResult" class="result-container"></div>
+            <div id="allCollegesResultList" class="result-list"></div>
+        </div>
+
+        <div class="api-section">
+            <h2><i class="fas fa-search"></i> Get College by ID</h2>
+            <div class="input-group">
+                <input type="number" id="collegeId" placeholder="Enter College ID" min="1">
+                <button onclick="getCollegeById()" class="btn btn-info">
+                    <i class="fas fa-search"></i> Get College
+                </button>
+            </div>
+            <div id="collegeByIdResult" class="result-container"></div>
+        </div>
+
+        <div class="api-section">
+            <h2><i class="fas fa-filter"></i> Search College by Name</h2>
+            <div class="input-group">
+                <input type="text" id="collegeName" placeholder="Enter College Name">
+                <button onclick="searchCollegeByName()" class="btn btn-warning">
+                    <i class="fas fa-search"></i> Search College
+                </button>
+            </div>
+            <div id="searchResult" class="result-container"></div>
+        </div>
+
+        <div class="api-section">
+            <h2><i class="fas fa-plus"></i> Create New College</h2>
+            <div class="form-group">
+                <input type="text" id="newCollegeName" placeholder="College Name" required>
+                <input type="text" id="newCollegeAddress" placeholder="College Address" required>
+                <button onclick="createCollege()" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Create College
+                </button>
+            </div>
+            <div id="createResult" class="result-container"></div>
+        </div>
+
+        <div class="api-section">
+            <h2><i class="fas fa-edit"></i> Update College</h2>
+            <div class="form-group">
+                <input type="number" id="updateCollegeId" placeholder="College ID" min="1" required>
+                <input type="text" id="updateCollegeName" placeholder="Updated College Name" required>
+                <input type="text" id="updateCollegeAddress" placeholder="Updated College Address" required>
+                <button onclick="updateCollege()" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Update College
+                </button>
+            </div>
+            <div id="updateResult" class="result-container"></div>
+        </div>
+
+        <div class="api-section">
+            <h2><i class="fas fa-trash"></i> Delete College</h2>
+            <div class="input-group">
+                <input type="number" id="deleteCollegeId" placeholder="Enter College ID to Delete" min="1">
+                <button onclick="deleteCollege()" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete College
+                </button>
+            </div>
+            <div id="deleteResult" class="result-container"></div>
+        </div>
+
+        <div class="api-info">
+            <h2><i class="fas fa-info-circle"></i> API Endpoints Information</h2>
+            <div class="endpoint-list">
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="url">http://localhost:3000/colleges</span>
+                    <span class="description">Get all colleges</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="url">http://localhost:3000/colleges/detail/:id</span>
+                    <span class="description">Get college by ID</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="url">http://localhost:3000/colleges/search/:name</span>
+                    <span class="description">Search college by name</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="url">http://localhost:3000/colleges/create</span>
+                    <span class="description">Create new college</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method put">PUT</span>
+                    <span class="url">http://localhost:3000/colleges/update/:id</span>
+                    <span class="description">Update college</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <span class="url">http://localhost:3000/colleges/delete/:id</span>
+                    <span class="description">Delete college</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <i class="fas fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
